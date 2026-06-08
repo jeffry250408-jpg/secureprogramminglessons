@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="flex justify-center">
             <img src="img/Omanido1.png" alt="Omanido Logo" class="mb-6 w-1/2"> <!-- Aanpassen van de breedte naar 1/2 van de container -->
         </div>
-        <h2 class="text-lg text-center font-bold mb-6">Inloggen bij Omanido</h2>
+        <h2 class="text-lg text-center font-bold mb-6">Inloggen bij Omanido door Jeffry</h2>
         <form action="<? echo htmlspecialchars($_SERVER["PHP_SELF"]);  ?>" method="post">
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Gebruikersnaam:</label>
