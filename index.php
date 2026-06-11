@@ -1,4 +1,6 @@
 <?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 session_start();
 include 'includes/db.php';
 
@@ -13,8 +15,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // kwetsbaar voor SQL injectie
-    $sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-    $result = $pdo->query($sql);
+    $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+    $result = $pdo->prepare($sql);
+    $result->execute([$username, $password]);
     $user = $result->fetch();
 
     // Controleer of er een rij is gevonden
