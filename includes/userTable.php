@@ -13,14 +13,22 @@ if ($checkTable->rowCount() == 0) {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
 
     // Voeg de standaardgebruikers toe
-    $insertUsersQuery = "
-    INSERT INTO `user` (`id`, `username`, `password`, `balance`, `isAdmin`) VALUES
-    (1, 'Admin', 'AlfaBankAdminAccount', 1000.00, 0),
-    (2, 'FerryKuhlman', '12345678', 1255.36, 0),
-    (5, 'Han2002', 'password', 23424.84, 0),
-    (6, 'RoyBos', 'qwerty', 9.23, 0);
-    ";
+   
+     $adminPassword = password_hash('AlfaBankAdminAccount', PASSWORD_DEFAULT);
+    $ferryPassword = password_hash('12345678', PASSWORD_DEFAULT);
+    $hanPassword = password_hash('password', PASSWORD_DEFAULT);
+    $royPassword = password_hash('qwerty', PASSWORD_DEFAULT);
 
     // Voer de SQL-query uit om de gebruikers toe te voegen
-    $pdo->exec($insertUsersQuery);
+   $stmt = $pdo->prepare("
+    INSERT INTO `user` (`id`, `username`, `password`, `balance`, `isAdmin`)
+    VALUES (?, ?, ?, ?, ?)
+    ");
+
+    $stmt->execute([1, 'Admin', $adminPassword, 1000.00, 0]);
+    $stmt->execute([2, 'FerryKuhlman', $ferryPassword, 1255.36, 0]);
+    $stmt->execute([5, 'Han2002', $hanPassword, 23424.84, 0]);
+    $stmt->execute([6, 'RoyBos', $royPassword, 9.23, 0]);
+}
+?>
 }
